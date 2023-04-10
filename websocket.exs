@@ -2,7 +2,7 @@ defmodule ChatServer do
   require Logger
 
   def start do
-    Logger.info("Starting ChatServer...")
+    Logger.info("Avviando il ChatServer...")
     {:ok, _} = Plug.Adapters.Cowboy.http(__MODULE__, [])
   end
 
@@ -15,12 +15,12 @@ defmodule ChatServer do
   end
 
   def handle_in("join", _params, socket) do
-    Logger.info("User joined chat")
+    Logger.info("L'utente e entrato nella chat")
     {:ok, assign(socket, :joined, true)}
   end
 
   def handle_in("message", %{"text" => message}, socket) do
-    Logger.info("Received message: #{message}")
+    Logger.info("Messaggio ricevuto: #{message}")
     broadcast(socket, "message", %{text: message})
     {:noreply, socket}
   end
